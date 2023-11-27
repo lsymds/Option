@@ -24,4 +24,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Option\Option.csproj" />
+  </ItemGroup>
+
 </Project>
