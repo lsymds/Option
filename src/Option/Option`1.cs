@@ -21,7 +21,7 @@ public record Option<T>
     public bool IsNone { get; }
     
     /// <summary>
-    /// Gets the value of this option. Will return null if <see cref="IsSome"/> is false.
+    /// Gets the value of this option. Will return null if <see cref="IsNone"/>.
     /// </summary>
     public T? Some { get; }
 
@@ -37,7 +37,7 @@ public record Option<T>
     /// <summary>
     /// Creates an <see cref="Option{T}"/> in a 'Some' state with a value.
     /// </summary>
-    /// <param name="some"></param>
+    /// <param name="some">The value to put in the Option.</param>
     internal Option(T some)
     {
         IsSome = true;
@@ -46,7 +46,7 @@ public record Option<T>
     }
 
     /// <summary>
-    /// UNSAFELY gets the value of <see cref="Some"/> if <see cref="IsSome"/> is true, else throws an
+    /// UNSAFELY gets the value of <see cref="Some"/> if <see cref="IsSome"/>, else throws an
     /// <see cref="InvalidOperationException"/>.
     /// </summary>
     /// <exception cref="InvalidOperationException">
@@ -63,11 +63,23 @@ public record Option<T>
     }
 
     /// <summary>
-    /// If <see cref="IsSome"/> is true, maps the value of <see cref="Some"/> to a value of type <see cref="TMap"/>
+    /// Gets the value of <see cref="Some"/> if <see cref="IsSome"/>, else returns <see cref="@else"/>.
+    /// </summary>
+    /// <param name="else">The value to return if <see cref="IsNone"/></param>
+    /// <returns></returns>
+    public T UnwrapOrElse(T @else)
+    {
+        return IsSome
+            ? Some
+            : @else;
+    }
+
+    /// <summary>
+    /// If <see cref="IsSome"/>, maps the value of <see cref="Some"/> to a value of type <see cref="TMap"/>
     /// using the provided mapping function. Otherwise, returns an <see cref="Option{T}"/> in a 'None' state.
     /// </summary>
     /// <param name="someMapper">
-    /// The mapper to apply to the current <see cref="Some"/> value if <see cref="IsSome"/> is true.
+    /// The mapper to apply to the current <see cref="Some"/> value if <see cref="IsSome"/>.
     /// </param>
     /// <typeparam name="TMap">The type to map to.</typeparam>
     public Option<TMap> Map<TMap>(Func<T, TMap> someMapper)
@@ -78,10 +90,10 @@ public record Option<T>
     }
 
     /// <summary>
-    /// Returns the current <see cref="Option"/> if <see cref="IsSome"/> is true, else returns a new <see cref="Option"/>
+    /// Returns the current <see cref="Option"/> if <see cref="IsSome"/>, else returns a new <see cref="Option"/>
     /// in a 'Some' state with a value of <see cref="@else"/>.
     /// </summary>
-    /// <param name="else">The alternative value to return if <see cref="IsNone"/> is true.</param>
+    /// <param name="else">The alternative value to return if <see cref="IsNone"/>.</param>
     public Option<T> OrElse(T @else)
     {
         return IsSome
