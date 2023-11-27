@@ -19,7 +19,7 @@ public class OptionCreationTests
     {
         // Act.
         var option = Option.Some("hello");
-        
+
         // Assert.
         option.IsSome.ShouldBeTrue();
         option.IsNone.ShouldBeFalse();

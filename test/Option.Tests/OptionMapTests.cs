@@ -7,10 +7,10 @@ public class OptionMapTests
     {
         // Arrange.
         var option = Option.Some("Hello, World.");
-        
+
         // Act.
         var result = option.Map(o => o.Length);
-        
+
         // Assert.
         result.IsSome.ShouldBeTrue();
         result.IsNone.ShouldBeFalse();
@@ -22,10 +22,10 @@ public class OptionMapTests
     {
         // Arrange.
         var option = Option.None<string>();
-        
+
         // Act.
         var result = option.Map(o => o);
-        
+
         // Assert.
         result.IsSome.ShouldBeFalse();
         result.IsNone.ShouldBeTrue();

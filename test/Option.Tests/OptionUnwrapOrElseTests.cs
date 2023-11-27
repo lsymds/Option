@@ -20,7 +20,7 @@ public class OptionUnwrapOrElseTests
     {
         // Arrange.
         var option = Option.None<string>();
-        
+
         // Act.
         var result = option.UnwrapOrElse("Goodbye, World.");
 

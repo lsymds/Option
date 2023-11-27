@@ -13,13 +13,13 @@ public record Option<T>
     /// </summary>
     [MemberNotNullWhen(true, nameof(Some))]
     public bool IsSome { get; }
-    
+
     /// <summary>
     /// Gets a boolean indicating whether this option does not have a value.
     /// </summary>
     [MemberNotNullWhen(false, nameof(Some))]
     public bool IsNone { get; }
-    
+
     /// <summary>
     /// Gets the value of this option. Will return null if <see cref="IsNone"/>.
     /// </summary>
@@ -56,7 +56,9 @@ public record Option<T>
     {
         if (IsNone)
         {
-            throw new InvalidOperationException("Unable to retrieve Some value as Option is in a None state.");
+            throw new InvalidOperationException(
+                "Unable to retrieve Some value as Option is in a None state."
+            );
         }
 
         return Some;
@@ -69,9 +71,7 @@ public record Option<T>
     /// <returns></returns>
     public T UnwrapOrElse(T @else)
     {
-        return IsSome
-            ? Some
-            : @else;
+        return IsSome ? Some : @else;
     }
 
     /// <summary>
@@ -84,9 +84,7 @@ public record Option<T>
     /// <typeparam name="TMap">The type to map to.</typeparam>
     public Option<TMap> Map<TMap>(Func<T, TMap> someMapper)
     {
-        return IsSome
-            ? new Option<TMap>(someMapper(Some))
-            : new Option<TMap>();
+        return IsSome ? new Option<TMap>(someMapper(Some)) : new Option<TMap>();
     }
 
     /// <summary>
@@ -96,9 +94,7 @@ public record Option<T>
     /// <param name="else">The alternative value to return if <see cref="IsNone"/>.</param>
     public Option<T> OrElse(T @else)
     {
-        return IsSome
-            ? this
-            : new Option<T>(@else);
+        return IsSome ? this : new Option<T>(@else);
     }
 
     /// <summary>

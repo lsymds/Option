@@ -22,10 +22,10 @@ public class OptionOrElseTests
     {
         // Arrange.
         var option = Option.None<string>();
-        
+
         // Act.
         var result = option.OrElse("foo");
-        
+
         // Assert.
         result.IsSome.ShouldBeTrue();
         result.IsNone.ShouldBeFalse();

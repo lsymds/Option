@@ -7,10 +7,10 @@ public class OptionUnwrapTests
     {
         // Arrange.
         var option = Option.Some("Hello, World.");
-        
+
         // Act.
         var result = option.Unwrap();
-        
+
         // Assert.
         result.ShouldBe("Hello, World.");
     }
