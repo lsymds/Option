@@ -17,6 +17,7 @@ public record Option<T>
     /// <summary>
     /// Gets a boolean indicating whether this option does not have a value.
     /// </summary>
+    [MemberNotNullWhen(false, nameof(Some))]
     public bool IsNone { get; }
     
     /// <summary>
@@ -42,6 +43,23 @@ public record Option<T>
         IsSome = true;
         IsNone = false;
         Some = some;
+    }
+
+    /// <summary>
+    /// UNSAFELY gets the value of <see cref="Some"/> if <see cref="IsSome"/> is true, else throws an
+    /// <see cref="InvalidOperationException"/>.
+    /// </summary>
+    /// <exception cref="InvalidOperationException">
+    /// Thrown when an attempt is made to get the value of the option when <see cref="IsNone"/> is true.
+    /// </exception>
+    public T Unwrap()
+    {
+        if (IsNone)
+        {
+            throw new InvalidOperationException("Unable to retrieve Some value as Option is in a None state.");
+        }
+
+        return Some;
     }
 
     /// <summary>
