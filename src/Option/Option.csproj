@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>LSymds.Option</RootNamespace>
+    <PackageId>LSymds.Option</PackageId>
+    <Title>LSymds.Option</Title>
+    <Authors>lsymds</Authors>
+    <Description>An Option monad for .NET.</Description>
+    <Copyright>lsymds</Copyright>
+    <PackageProjectUrl>https://github.com/lsymds/Option</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/lsymds/Option</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/lsymds/Option</RepositoryUrl>
+    <PackageTags>option monad,option,monad</PackageTags>
+  </PropertyGroup>
+
+</Project>
