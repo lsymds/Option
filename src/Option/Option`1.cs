@@ -6,7 +6,7 @@ namespace LSymds.Option;
 /// A monad that represents a value that COULD be present.
 /// </summary>
 /// <typeparam name="T">The type of the value.</typeparam>
-public class Option<T>
+public record Option<T>
 {
     /// <summary>
     /// Gets a boolean indicating whether this option has a value or not.
