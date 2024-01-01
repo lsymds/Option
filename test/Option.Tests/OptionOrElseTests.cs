@@ -2,33 +2,77 @@
 
 public class OptionOrElseTests
 {
-    [Fact]
-    public void ReturnsTheExistingOption_IfTheOptionIsSome()
+    public class Static
     {
-        // Arrange.
-        var option = Option.Some("Hello, world.");
+        [Fact]
+        public void ReturnsTheExistingOption_IfTheOptionIsSome()
+        {
+            // Arrange.
+            var option = Option.Some("Hello, world.");
 
-        // Act.
-        var result = option.OrElse("foo");
+            // Act.
+            var result = option.OrElse("foo");
 
-        // Assert.
-        result.IsSome.ShouldBeTrue();
-        result.IsNone.ShouldBeFalse();
-        result.Some.ShouldBe("Hello, world.");
+            // Assert.
+            result.IsSome.ShouldBeTrue();
+            result.IsNone.ShouldBeFalse();
+            result.Some.ShouldBe("Hello, world.");
+        }
+
+        [Fact]
+        public void ReturnsANewOptionWithTheElseValue_IfTheOptionIsNone()
+        {
+            // Arrange.
+            var option = Option.None<string>();
+
+            // Act.
+            var result = option.OrElse("foo");
+
+            // Assert.
+            result.IsSome.ShouldBeTrue();
+            result.IsNone.ShouldBeFalse();
+            result.Some.ShouldBe("foo");
+        }
     }
 
-    [Fact]
-    public void ReturnsANewOptionWithTheElseValue_IfTheOptionIsNone()
+    public class Lambda
     {
-        // Arrange.
-        var option = Option.None<string>();
+        [Fact]
+        public void ReturnsTheExistingOption_AndDoesNotEvaluateTheElseLambda_IfTheOptionIsSome()
+        {
+            // Arrange.
+            var check = false;
+            string Func()
+            {
+                check = true;
+                return "foo";
+            }
 
-        // Act.
-        var result = option.OrElse("foo");
+            var option = Option.Some("Hello, world.");
 
-        // Assert.
-        result.IsSome.ShouldBeTrue();
-        result.IsNone.ShouldBeFalse();
-        result.Some.ShouldBe("foo");
+            // Act.
+            var result = option.OrElse(Func);
+
+            // Assert.
+            result.IsSome.ShouldBeTrue();
+            result.IsNone.ShouldBeFalse();
+            result.Some.ShouldBe("Hello, world.");
+            check.ShouldBeFalse();
+        }
+
+        [Fact]
+        public void ReturnsANewOptionWithTheEvaluatedLambda_IfTheOptionIsNone()
+        {
+            // Arrange.
+            var option = Option.None<string>();
+
+            // Act.
+            var result = option.OrElse(() => "foo");
+
+            // Assert.
+            result.IsSome.ShouldBeTrue();
+            result.IsNone.ShouldBeFalse();
+            result.Some.ShouldBe("foo");
+        }
     }
 }

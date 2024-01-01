@@ -98,6 +98,18 @@ public record Option<T>
     }
 
     /// <summary>
+    /// Returns the current <see cref="Option"/> if <see cref="IsSome"/>, else returns a new <see cref="Option"/> in
+    /// a <see cref="Some"/> state with a value returned from a just in time evaluation of the <see cref="@else"/>
+    /// lambda provided.
+    /// </summary>
+    /// <param name="else">A lambda that will be lazily evaluated to retrieve an alternative value if <see cref="IsNone"/>.</param>
+    /// <returns></returns>
+    public Option<T> OrElse(Func<T> @else)
+    {
+        return IsSome ? this : new Option<T>(@else());
+    }
+
+    /// <summary>
     /// Creates an <see cref="Option{T}"/> in a 'None' state (without a value).
     /// </summary>
     public static Option<T> None()
