@@ -8,6 +8,8 @@ namespace LSymds.Option;
 /// <typeparam name="T">The type of the value.</typeparam>
 public record Option<T>
 {
+    private static readonly Option<T> NoneValue = new();
+    
     /// <summary>
     /// Gets a boolean indicating whether this option has a value or not.
     /// </summary>
@@ -114,6 +116,6 @@ public record Option<T>
     /// </summary>
     public static Option<T> None()
     {
-        return new Option<T>();
+        return NoneValue;
     }
 }

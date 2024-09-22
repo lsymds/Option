@@ -11,7 +11,7 @@ public static class Option
     /// <typeparam name="T">The type of the option.</typeparam>
     public static Option<T> None<T>()
     {
-        return new Option<T>();
+        return Option<T>.None();
     }
 
     /// <summary>

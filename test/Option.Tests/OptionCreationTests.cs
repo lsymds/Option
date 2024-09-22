@@ -15,6 +15,17 @@ public class OptionCreationTests
     }
 
     [Fact]
+    public void NonesAreConstant()
+    {
+        // Act.
+        var none = Option.None<string>();
+        var otherNone = Option.None<string>();
+        
+        // Assert.
+        none.ShouldBeSameAs(otherNone);
+    }
+
+    [Fact]
     public void CreatesASomeOption()
     {
         // Act.
